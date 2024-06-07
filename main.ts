@@ -1,3 +1,7 @@
+input.onLogoEvent(TouchButtonEvent.Touched, function () {
+    _4digit.clear()
+    basic.clearScreen()
+})
 grove.onGesture(GroveGesture.Right, function () {
     basic.showArrow(ArrowNames.South)
 })
@@ -19,9 +23,14 @@ grove.onGesture(GroveGesture.Anticlockwise, function () {
 grove.onGesture(GroveGesture.Backward, function () {
     basic.showIcon(IconNames.SmallDiamond)
 })
-input.onButtonPressed(Button.A, function () {
-    _4digit.clear()
-    basic.clearScreen()
+grove.onGesture(GroveGesture.Wave, function () {
+    basic.showLeds(`
+        . . # . .
+        . # . # .
+        # # # # #
+        . # . # .
+        . . # . .
+        `)
 })
 grove.onGesture(GroveGesture.Clockwise, function () {
     basic.showLeds(`
@@ -59,7 +68,9 @@ basic.forever(function () {
     } else if (pins.digitalReadPin(DigitalPin.P13) == 0) {
         _4digit.bit(3, 3)
         watchfont.showNumber2(13)
-    } else {
-    	
+    } else if (pins.digitalReadPin(DigitalPin.P5) == 0) {
+        basic.showNumber(5)
+    } else if (pins.digitalReadPin(DigitalPin.P11) == 0) {
+        watchfont.showNumber2(11)
     }
 })
